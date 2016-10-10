@@ -135,7 +135,9 @@ public class ApiGroovyCompiler implements org.gradle.language.base.internal.comp
             unit.addSources(new File[]{new File("ForceStubGeneration.java")});
         }
 
-        unit.addSources(Iterables.toArray(spec.getSource(), File.class));
+        File[] sortedSourceFiles = Iterables.toArray(spec.getSource(), File.class);
+        Arrays.sort(sortedSourceFiles);
+        unit.addSources(sortedSourceFiles);
         unit.setCompilerFactory(new JavaCompilerFactory() {
             public JavaCompiler createCompiler(final CompilerConfiguration config) {
                 return new JavaCompiler() {
